@@ -27,7 +27,7 @@ A Django-based monolithic web application that allows users to post ads for good
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/barter_platform.git
+   git clone https://github.com/nanakwamebaah/Barter_system.git
    cd barter_platform
    ```
 
