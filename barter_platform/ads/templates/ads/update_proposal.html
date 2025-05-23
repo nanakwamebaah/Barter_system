@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Update Proposal Status</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="status">Status:</label>
+    <select id="status" name="status" class="form-select">
+        {% for key, value in proposal.STATUS_CHOICES %}
+        <option value="{{ key }}" {% if proposal.status == key %}selected{% endif %}>{{ value }}</option>
+        {% endfor %}
+    </select>
+    <button class="btn btn-primary" type="submit">Update</button>
+</form>
+<a href="{% url 'proposal_list' %}">Back to Proposals</a>
+{% endblock %}

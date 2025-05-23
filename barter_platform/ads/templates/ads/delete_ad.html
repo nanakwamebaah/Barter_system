@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Delete Ad</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete "{{ ad.title }}"?</p>
+    <button class="btn btn-danger" type="submit">Yes, delete</button>
+    <a class="btn btn-secondary" href="{% url 'ad_detail' ad.id %}">Cancel</a>
+</form>
+{% endblock %}

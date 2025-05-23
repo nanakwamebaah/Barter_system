@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+
+        <h2 class="card-title mb-4 text-center">
+          {% if form.instance.pk %}Edit{% else %}Create{% endif %} Ad
+        </h2>
+
+        <form method="post" novalidate>
+          {% csrf_token %}
+
+          <!-- Title -->
+          <div class="row mb-3 align-items-center">
+            <label for="{{ form.title.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Title
+            </label>
+            <div class="col-sm-8">
+              {{ form.title }}
+              {% if form.title.errors %}
+                <div class="text-danger small">{{ form.title.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="row mb-3 align-items-start">
+            <label for="{{ form.description.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Description
+            </label>
+            <div class="col-sm-8">
+              {{ form.description }}
+              {% if form.description.errors %}
+                <div class="text-danger small">{{ form.description.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Image URL -->
+          <div class="row mb-3 align-items-center">
+            <label for="{{ form.image_url.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Image URL
+            </label>
+            <div class="col-sm-8">
+              {{ form.image_url }}
+              {% if form.image_url.errors %}
+                <div class="text-danger small">{{ form.image_url.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div class="row mb-3 align-items-center">
+            <label for="{{ form.category.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Category
+            </label>
+            <div class="col-sm-8">
+              {{ form.category }}
+              {% if form.category.errors %}
+                <div class="text-danger small">{{ form.category.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Condition -->
+          <div class="row mb-4 align-items-center">
+            <label for="{{ form.condition.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Condition
+            </label>
+            <div class="col-sm-8">
+              {{ form.condition }}
+              {% if form.condition.errors %}
+                <div class="text-danger small">{{ form.condition.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <button class="btn btn-success w-100" type="submit">
+            {% if form.instance.pk %}Save Changes{% else %}Create{% endif %}
+          </button>
+        </form>
+
+        <div class="mt-3 text-center">
+          <a href="{% url 'ad_list' %}">&larr; Back to Ads</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

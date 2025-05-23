@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="card-title mb-3 text-center">
+          Proposal #{{ proposal.id }}
+        </h2>
+
+        <ul class="list-group list-group-flush mb-4">
+          <li class="list-group-item">
+            <strong>From Ad:</strong>
+            <a href="{% url 'ad_detail' proposal.ad_sender.id %}">
+              {{ proposal.ad_sender.title }}
+            </a>
+          </li>
+          <li class="list-group-item">
+            <strong>To Ad:</strong>
+            <a href="{% url 'ad_detail' proposal.ad_receiver.id %}">
+              {{ proposal.ad_receiver.title }}
+            </a>
+          </li>
+          <li class="list-group-item">
+            <strong>Comment:</strong> {{ proposal.comment }}
+          </li>
+          <li class="list-group-item">
+            <strong>Status:</strong> {{ proposal.get_status_display }}
+          </li>
+          <li class="list-group-item">
+            <strong>Created at:</strong>
+            {{ proposal.created_at|date:"M j, Y H:i" }}
+          </li>
+        </ul>
+
+        <div class="d-flex justify-content-between gap-2">
+          {% if user == proposal.ad_receiver.user and proposal.status == 'pending' %}
+            <a 
+              href="{% url 'update_proposal' proposal.id %}" 
+              class="btn btn-primary"
+            >
+              Update Status
+            </a>
+          {% endif %}
+
+          <a href="{% url 'proposal_list' %}" class="btn btn-secondary">
+            Back to Proposals
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

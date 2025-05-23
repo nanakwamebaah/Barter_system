@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="card-title mb-4 text-center">Sign up</h2>
+
+        <form method="post" novalidate>
+          {% csrf_token %}
+          
+          <div class="row mb-3 align-items-center">
+            <label for="{{ form.username.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Username
+            </label>
+            <div class="col-sm-8">
+              {{ form.username }}
+              {% if form.username.errors %}
+                <div class="text-danger small">{{ form.username.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="row mb-3 align-items-center">
+            <label for="{{ form.email.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Email
+            </label>
+            <div class="col-sm-8">
+              {{ form.email }}
+              {% if form.email.errors %}
+                <div class="text-danger small">{{ form.email.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="row mb-3 align-items-center">
+            <label for="{{ form.password1.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Password
+            </label>
+            <div class="col-sm-8">
+              {{ form.password1 }}
+              {% if form.password1.errors %}
+                <div class="text-danger small">{{ form.password1.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="row mb-4 align-items-center">
+            <label for="{{ form.password2.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Confirm
+            </label>
+            <div class="col-sm-8">
+              {{ form.password2 }}
+              {% if form.password2.errors %}
+                <div class="text-danger small">{{ form.password2.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100 mb-3" type="submit">
+            Sign up
+          </button>
+          
+          <hr>
+
+          <p class="text-center mb-0">
+            Already have an account?
+            <a href="{% url 'login' %}">Login here</a>
+          </p>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

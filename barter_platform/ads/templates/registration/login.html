@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-md-6 col-lg-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="card-title mb-4 text-center">Login</h2>
+
+        <form method="post" novalidate>
+          {% csrf_token %}
+
+          <div class="row mb-3 align-items-center">
+            <label for="{{ form.username.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Username
+            </label>
+            <div class="col-sm-8">
+              {{ form.username }}
+              {% if form.username.errors %}
+                <div class="text-danger small">{{ form.username.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="row mb-4 align-items-center">
+            <label for="{{ form.password.id_for_label }}"
+                   class="col-sm-4 col-form-label text-end">
+              Password
+            </label>
+            <div class="col-sm-8">
+              {{ form.password }}
+              {% if form.password.errors %}
+                <div class="text-danger small">{{ form.password.errors.0 }}</div>
+              {% endif %}
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100 mb-3" type="submit">
+            Login
+          </button>
+
+          <hr>
+
+          <p class="text-center mb-0">
+            Don’t have an account?
+            <a href="{% url 'signup' %}">Sign up</a>
+          </p>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Propose Exchange</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-success" type="submit">Send Proposal</button>
+</form>
+<a href="{% url 'ad_list' %}">Back to Ads</a>
+{% endblock %}

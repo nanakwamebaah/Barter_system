@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+    <title>Barter Platform</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'ads/css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'ad_list' %}">Home</a>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="{% url 'create_ad' %}">Post New Ad</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'proposal_list' %}">Proposals</a></li>
+        </ul>
+        <span>Welcome, {{ user.username }}!</span>
+        <form
+            method="post"
+            action="{% url 'logout' %}"
+            style="display:inline"
+          >
+            {% csrf_token %}
+            <button class="btn btn-link p-0 m-0 align-baseline">
+              Logout
+            </button>
+        </form>
+        {% else %}
+        <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Sign up</a></p>
+        {% endif %}
+      </div>
+    </nav>
+    <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-info">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Ads</h2>
+<form class="row g-3 mb-3" method="get">
+    <div class="col-auto">
+        <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ request.GET.q }}">
+    </div>
+    <div class="col-auto">
+        <input type="text" name="category" class="form-control" placeholder="Category..." value="{{ request.GET.category }}">
+    </div>
+    <div class="col-auto">
+        <select name="condition" class="form-select">
+            <option value="">Condition</option>
+            <option value="new" {% if request.GET.condition == 'new' %}selected{% endif %}>New</option>
+            <option value="used" {% if request.GET.condition == 'used' %}selected{% endif %}>Used</option>
+        </select>
+    </div>
+    <div class="col-auto">
+        <button class="btn btn-secondary">Filter</button>
+    </div>
+</form>
+<ul class="list-group">
+    {% for ad in page_obj %}
+    <li class="list-group-item">
+        <h4><a href="{% url 'ad_detail' ad.id %}">{{ ad.title }}</a></h4>
+        <p>{{ ad.description|truncatewords:20 }}</p>
+        <small>Posted by {{ ad.user.username }} | {{ ad.category }} | {{ ad.get_condition_display }}</small>
+    </li>
+    {% endfor %}
+</ul>
+<nav>
+ <ul class="pagination mt-3">
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+    {% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }}</span></li>
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+    {% endif %}
+ </ul>
+</nav>
+{% endblock %}
